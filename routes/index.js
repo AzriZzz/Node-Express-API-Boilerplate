@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
   var jsonData = {
   	'name': 'node-express-api-boilerplate',
     'api-status':'OK',
-    'mom':'NotOk'
+    'age': '17'
   }
 
   // respond with json data
