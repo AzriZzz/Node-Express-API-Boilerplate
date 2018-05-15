@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var env = require('node-env-file');
+var cors = require('cors');
+
 
 var app = express();
 
@@ -31,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.options('*', cors()) // include before other routes
 
 // our routes will be contained in routes/index.js
 var routes = require('./routes/index');

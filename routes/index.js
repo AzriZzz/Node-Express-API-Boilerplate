@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var geocoder = require('geocoder'); // geocoder library
+var cors = require('cors');
 
 // our db model
 var Animal = require("../models/model.js");
@@ -28,7 +29,7 @@ router.get('/show-pets', function(req,res){
 //  * @return {Object} JSON
 //  */
 
-router.get('/animals', function(req, res) {
+router.get('/animals',cors(), function(req, res) {
 	Animal.findAll().then(animal => {
 		 
 		 res.json(animal);
