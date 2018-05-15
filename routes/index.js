@@ -40,6 +40,23 @@ router.get('/', function(req, res) {
   res.json(jsonData)
 });
 
+/**
+ * GET '/test'
+ * Default home route. Just relays a success message back.
+ * @param  {Object} req
+ * @return {Object} json
+ */
+router.get('/test', function(req, res) {
+
+  var jsonData = {
+  	'name': 'test',
+    'api-status':'OK'
+  }
+
+  // respond with json data
+  res.json(jsonData)
+});
+
 // /**
 //  * POST '/api/create'
 //  * Receives a POST request of the new animal, saves to db, responds back
