@@ -35,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // our routes will be contained in routes/index.js
 var routes = require('./routes/index');
 var programe = require('./routes/programe');
+
+
 app.use('/', routes);
 app.use('/programe', programe);
 
