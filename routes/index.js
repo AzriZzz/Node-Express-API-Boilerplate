@@ -23,6 +23,12 @@ router.get('/show-pets', function(req,res){
   res.render('show-pets.html')
 })
 
+router.get('/animals', cors(), function (req, res) {
+  Animal.findAll().then(animal => {
+      res.json(animal);
+  })
+});
+
 /**
  * GET '/'
  * Default home route. Just relays a success message back.
