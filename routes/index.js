@@ -40,6 +40,34 @@ router.get('/', function(req, res) {
   res.json(jsonData)
 });
 
+/**
+ * GET '/'
+ * Default home route. Just relays a success message back.
+ * @param  {Object} req
+ * @return {Object} json
+ */
+router.get('/animals', function(req, res) {
+
+  Animal.find(function(err, data){
+    // if err or no animals found, respond with error
+    if(err || data == null){
+      var error = {status:'ERROR', message: 'Could not find animals'};
+      return res.json(error);
+    }
+
+    // otherwise, respond with the data
+
+    var jsonData = {
+      status: 'OK',
+      animals: data
+    }
+
+    res.json(jsonData);
+
+  })
+  
+});
+
 
 // /**
 //  * POST '/api/create'
