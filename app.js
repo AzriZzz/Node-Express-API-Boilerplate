@@ -39,7 +39,7 @@ app.options('*', cors()) // include before other routes
 var routes = require('./routes/index');
 var programe = require('./routes/programe');
 app.use('/', routes);
-app.use('/programe', programe);
+app.use('/programes', programe);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
