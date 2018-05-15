@@ -2,4 +2,3 @@
 .env
 node_modules
 models/programe.js
-routes/programe.js
