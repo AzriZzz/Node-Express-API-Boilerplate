@@ -28,10 +28,10 @@ router.get('/show-pets', function(req,res){
 //  * @return {Object} JSON
 //  */
 
-router.get('/animals', cors(),function(req, res) {
+router.get('/animals', function(req, res) {
 	Animal.findAll().then(animal => {
 		 
-		 res.json(priority);
+		 res.json(animal);
 	})  
 });
 
