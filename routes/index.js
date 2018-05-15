@@ -5,7 +5,7 @@ var geocoder = require('geocoder'); // geocoder library
 var cors = require('cors');
 
 // our db model
-var Animal = require("../models/model.js")(sequelize, DataTypes);
+var Animal = require('../models/model.js')(sequelize, DataTypes);
 
 // simple route to render am HTML form that can POST data to our server
 // NOTE that this is not a standard API route, and is really just for testing
@@ -22,12 +22,6 @@ router.get('/create-pet-location', function(req,res){
 router.get('/show-pets', function(req,res){
   res.render('show-pets.html')
 })
-
-router.get('/animals', cors(), function (req, res) {
-  Animal.findAll().then(animal => {
-      res.json(animal);
-  })
-});
 
 /**
  * GET '/'
