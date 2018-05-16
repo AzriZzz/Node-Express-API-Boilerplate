@@ -41,7 +41,7 @@ router.get('/', function(req, res) {
 });
 
 /**
- * GET '/'
+ * GET '/animals'
  * Default home route. Just relays a success message back.
  * @param  {Object} req
  * @return {Object} json
