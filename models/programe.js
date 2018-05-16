@@ -12,7 +12,7 @@ var programeSchema = new Schema({
 	},
 	prog_name: String,
 	cust_name: String,
-	date: { 
+	dateAdded: { 
 		type: Date, 
 		default: Date.now 
 	},
