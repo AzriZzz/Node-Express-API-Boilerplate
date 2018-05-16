@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 // See http://mongoosejs.com/docs/schematypes.html
 
-var programeScheme = new Schema({
+var programeSchema = new Schema({
 	id: {
 		type: String,
 		allowNull: false,
@@ -24,5 +24,5 @@ var programeScheme = new Schema({
 })
 
 // export 'Programe' model so we can interact with it in other files
-module.exports = mongoose.model('Programe',programeScheme);
+module.exports = mongoose.model('Programe',programeSchema);
 
