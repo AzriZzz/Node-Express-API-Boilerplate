@@ -89,7 +89,7 @@ router.post('/create', function(req, res){
     };
 
     // create a new animal model instance, passing in the object
-    var programeObj = new Programe(programeObj);
+    var programe = new Programe(programeObj);
 
     // now, save that programe instance to the database
     // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
