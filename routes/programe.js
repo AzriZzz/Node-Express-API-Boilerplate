@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 // our db model
-// var Programe = require("../models/programe.js");
+var Programe = require("../models/programe.js");
 
 /**
  * GET '/programe'
