@@ -151,7 +151,7 @@ router.get('/api/get', function(req, res){
       status: 'OK',
       animals: data
     }
-    console.log(data);
+    console.log(jsonData);
     res.json(jsonData);
 
   })
