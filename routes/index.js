@@ -2,10 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var geocoder = require('geocoder'); // geocoder library
-var cors = require('cors');
 
 // our db model
-var Animal = require('../models/model.js');
+var Animal = require("../models/model.js");
 
 // simple route to render am HTML form that can POST data to our server
 // NOTE that this is not a standard API route, and is really just for testing
@@ -33,41 +32,12 @@ router.get('/', function(req, res) {
 
   var jsonData = {
   	'name': 'node-express-api-boilerplate',
-    'api-status':'OK'
+  	'api-status':'OK'
   }
 
   // respond with json data
   res.json(jsonData)
 });
-
-/**
- * GET '/animals'
- * Default home route. Just relays a success message back.
- * @param  {Object} req
- * @return {Object} json
- */
-router.get('/animals', function(req, res) {
-
-  Animal.find(function(err, data){
-    // if err or no animals found, respond with error
-    if(err || data == null){
-      var error = {status:'ERROR', message: 'Could not find animals'};
-      return res.json(error);
-    }
-
-    // otherwise, respond with the data
-
-    var jsonData = {
-      status: 'OK',
-      animals: data
-    }
-
-    res.json(jsonData);
-
-  })
-  
-});
-
 
 // /**
 //  * POST '/api/create'
