@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
 router.get('/listall', function(req, res) {
 
   //mongoose method to find all, see http://mongoosejs.com/docs/api.html#model_Model.find
-  Programe.find(function(err, data){
+  Programe.find({},function(err, data){
 
     //if error or no programe found, respond with error
     if (err || data == null){
