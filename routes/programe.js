@@ -46,6 +46,7 @@ router.get('/listall', function(req, res) {
       status: 'OK',
       programe: data
     }
+    console.log(data);
     res.json(jsonData);
   })
 })

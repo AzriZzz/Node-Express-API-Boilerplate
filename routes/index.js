@@ -123,7 +123,7 @@ router.get('/api/get/:id', function(req, res){
       status: 'OK',
       animal: data
     }
-
+    console.log(data);
     return res.json(jsonData);
 
   })
@@ -151,7 +151,7 @@ router.get('/api/get', function(req, res){
       status: 'OK',
       animals: data
     }
-
+    console.log(data);
     res.json(jsonData);
 
   })
