@@ -65,7 +65,7 @@ router.get('/listall', function(req, res) {
 //  * @return {Object} JSON
 //  */
 
-router.post('/programe/create', function(req, res){
+router.post('/create', function(req, res){
 
     console.log(req.body);
 
@@ -109,8 +109,8 @@ router.post('/programe/create', function(req, res){
         programe: data
       }
 
-      //return res.json(jsonData);
-      return res.redirect('/show-pets')
+      return res.json(jsonData);
+    //   return res.redirect('/show-pets')
 
     })
 });
