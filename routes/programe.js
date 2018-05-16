@@ -22,4 +22,33 @@ router.get('/', function(req, res) {
     res.json(jsonData)
   });
 
+// /**
+//  * GET '/programe/listall'
+//  * Receives a GET request to get all animal details
+//  * @return {Object} JSON
+//  */
+
+router.get('/listall', function(req, res) {
+
+  //mongoose method to find all, see http://mongoosejs.com/docs/api.html#model_Model.find
+  Programe.find(function(err, data){
+
+    //if error or no programe found, respond with error
+    if (err || data == null){
+      var error = {
+        status: 'ERROR', 
+        message: 'Could not find programe'};
+        return res.json(error);
+    }
+
+    //if programe is true
+    var jsonData = {
+      status: 'OK',
+      programe: data
+    }
+    res.json(jsonData);
+  })
+})
+
+
 module.exports = router;
