@@ -4,22 +4,16 @@ var Schema = mongoose.Schema;
 // See http://mongoosejs.com/docs/schematypes.html
 
 var programeSchema = new Schema({
-	id: {
-		type: String,
-		allowNull: false,
-		primaryKey: true,
-		autoIncrement: true
-	},
 	prog_name: String,
-	cust_name: String,
-	dateAdded: { 
-		type: Date, 
-		default: Date.now 
-	},
+	cust_name: String,	
 	redemption_no: String,
 	prod_item: String,
 	consignment_no: String,
-	courier_type: String,
+    courier_type: String,
+    dateAdded: { 
+		type: Date, 
+		default: Date.now 
+	},
 		
 })
 
