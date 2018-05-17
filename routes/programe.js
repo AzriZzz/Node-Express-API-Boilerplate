@@ -220,39 +220,54 @@ router.post('/upload', function(req, res) {
           exceltojson = xlstojson;
       }
 
-      var excelObj = {
-        exceltojson: exceltojson
-      }
 
-      console.log(excelObj);
+      console.log(req.file.path);
 
-      //ini yang keluarkan kat depan
-      // console.log(req.file.path);
+      // try {
+      //     exceltojson({
+      //         input: req.file.path,
+      //         output: null, //since we don't need output.json
+      //         lowerCaseHeaders:true
+      //     }, function(err,data){
+      //         if(err) {
+      //               res.json({
+      //               error_code: 13,
+      //               err_desc: err, 
+      //               programe: null
+      //             });
+      //         } 
+      //         return res.json({
+      //           status: 'OK',
+      //           programe: data
+      //         });
+      //     });
+      // } catch (e){
+      //       res.json({
+      //       error_code:14,
+      //       err_desc:'Corrupted excel file'
+      //     });
+      // }
 
-      try {
-          exceltojson({
-              input: req.file.path,
-              output: null, //since we don't need output.json
-              lowerCaseHeaders:true
-          }, function(err,data){
-              if(err) {
-                    res.json({
-                    error_code: 13,
-                    err_desc: err, 
-                    programe: null
-                  });
-              } 
-              return res.json({
-                status: 'OK',
-                programe: data
-              });
-          });
-      } catch (e){
-            res.json({
-            error_code:14,
-            err_desc:'Corupted excel file'
-          });
-      }
+      var program = new Programe(exceltojson);
+
+      program.save(exceltojson, function(err,data){
+        // if err saving, respond back with error
+        if (err){
+          var error = {status:'ERROR', message: 'Error saving programe'};
+          return res.json(error);
+        }
+
+        console.log('saved a new programe!');
+        console.log(data);
+
+        // now return the json data of the new programe
+        var jsonData = {
+          status: 'OK',
+          programe: data
+        }
+
+        return res.json(jsonData);
+      })
   }) 
 });
 
