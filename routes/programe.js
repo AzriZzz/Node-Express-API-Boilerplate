@@ -10,7 +10,7 @@ var xlsxtojson = require("xlsx-to-json-lc");
 var Programe = require("../models/programe.js");
 
 
-programe.use(bodyParser.json());  
+router.use(bodyParser.json());  
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
@@ -31,6 +31,13 @@ var upload = multer({ //multer settings
                     callback(null, true);
                 }
             }).single('file');
+
+
+// simple route to render an HTML page that upload data from our server and displays it on a page
+// NOTE that this is not a standard API route, and is really for testing
+router.get('/upload-file', function(req,res){
+  res.render('upload.html')
+})
 
 
 // /**
@@ -191,7 +198,7 @@ router.post('/upload', function(req, res) {
   upload(req,res,function(err){
       if(err){
            res.json({
-             error_code:1,
+             error_code:11,
              err_desc:err
             });
            return;
@@ -199,7 +206,7 @@ router.post('/upload', function(req, res) {
       /** Multer gives us file info in req.file object */
       if(!req.file){
           res.json({
-            error_code:1,
+            error_code:12,
             err_desc:"No file passed"
           });
           return;
@@ -212,7 +219,11 @@ router.post('/upload', function(req, res) {
       } else {
           exceltojson = xlstojson;
       }
+
+      //ini yang keluarkan kat depan
       console.log(req.file.path);
+      
+
       try {
           exceltojson({
               input: req.file.path,
@@ -221,9 +232,9 @@ router.post('/upload', function(req, res) {
           }, function(err,data){
               if(err) {
                   return res.json({
-                    error_code: 1,
+                    error_code: 13,
                     err_desc: err, 
-                    data: null
+                    programe: null
                   });
               } 
               res.json({
@@ -234,22 +245,12 @@ router.post('/upload', function(req, res) {
           });
       } catch (e){
           res.json({
-            error_code:1,
+            error_code:14,
             err_desc:"Corupted excel file"
           });
       }
-  })
- 
+  }) 
 });
 
-// app.get('/',function(req,res){
-// res.sendFile(__dirname + "/index.html");
-// });
-
-// app.listen('3000', function(){
-//   console.log('running on 3000...');
-// });
-
-
-
 module.exports = router;
+
