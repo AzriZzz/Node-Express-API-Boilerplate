@@ -220,14 +220,18 @@ router.post('/upload', function(req, res) {
           exceltojson = xlstojson;
       }
 
-      //ini yang keluarkan kat depan
-      console.log(req.file.path);
+      var excelObj = {
+        exceltojson: exceltojson
+      }
 
-      var programe = new Programe();
+      //ini yang keluarkan kat depan
+      // console.log(req.file.path);
+
+      var programe = new Programe(excelObj);
 
       // now, save that animal instance to the database
       // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
-      programe.save(exceltojson, function(err,data){
+      programe.save(function(err,data){
         // if err saving, respond back with error
         if (err){
           var error = {status:'ERROR', message: 'Error saving programe'};
