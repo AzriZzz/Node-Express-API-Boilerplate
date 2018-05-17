@@ -5,36 +5,13 @@ var mongoose = require('mongoose');
 // our db model
 var Programe = require("../models/programe.js");
 
-// simple route to render am HTML form that can POST data to our server
-// NOTE that this is not a standard API route, and is really just for testing
-router.get('/create-programe', function(req,res){
-    res.render('programe-form.html')
-  })
-
-/**
- * GET '/programe'
- * Programe home route. Just relays a success message back.
- * @param  {Object} req
- * @return {Object} json
- */
-router.get('/', function(req, res) {
-
-    var jsonData = {
-        'name': 'Program',
-        'api-status':'OK'
-    }
-  
-    // respond with json data
-    res.json(jsonData)
-  });
-
 // /**
-//  * GET '/programe/listall'
-//  * Receives a GET request to get all animal details
+//  * GET '/programe/'
+//  * Receives a GET request to get all programe details
 //  * @return {Object} JSON
 //  */
 
-router.get('/listall', function(req, res) {
+router.get('/', function(req, res) {
 
   //mongoose method to find all, see http://mongoosejs.com/docs/api.html#model_Model.find
   Programe.find({},function(err, data){
@@ -49,7 +26,6 @@ router.get('/listall', function(req, res) {
 
     //if programe is true
     var jsonData = {
-      status: 'OK',
       programe: data
     }
     console.log(jsonData);
@@ -59,7 +35,7 @@ router.get('/listall', function(req, res) {
 
 
 // /**
-//  * POST '/api/create'
+//  * POST '/programe/create'
 //  * Receives a POST request of the new programe, saves to db, responds back
 //  * @param  {Object} req. An object containing the different attributes of the Programe
 //  * @return {Object} JSON
@@ -105,7 +81,6 @@ router.post('/create', function(req, res){
 
       // now return the json data of the new animal
       var jsonData = {
-        status: 'OK',
         programe: data
       }
 
@@ -114,6 +89,66 @@ router.post('/create', function(req, res){
 
     })
 });
+
+// /**
+//  * GET '/programe/get/:id'
+//  * Receives a GET request specifying the programe to get
+//  * @param  {String} req.params.id - The programeId
+//  * @return {Object} JSON
+//  */
+
+router.get('/get/:id', function(req, res){
+
+  var requestedId = req.params.id;
+
+  // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model.findById
+  Programe.findById(requestedId, function(err,data){
+
+    // if err or no user found, respond with error
+    if(err || data == null){
+      var error = {status:'ERROR', message: 'Could not find that programe'};
+       return res.json(error);
+    }
+
+    // otherwise respond with JSON data of the animal
+    var jsonData = {
+      programe: data
+    }
+    return res.json(jsonData);
+
+  })
+})
+
+/**
+ * GET '/programe/delete/:id'
+ * Receives a GET request specifying the programe to delete
+ * @param  {String} req.params.id - The programe
+ * @return {Object} JSON
+ */
+
+router.get('/delete/:id', function(req, res){
+
+  var requestedId = req.params.id;
+
+  // Mongoose method to remove, http://mongoosejs.com/docs/api.html#model_Model.findByIdAndRemove
+  Programe.findByIdAndRemove(requestedId,function(err, data){
+    if(err || data == null){
+      var error = {status:'ERROR', message: 'Could not find that programe to delete'};
+      return res.json(error);
+    }
+
+    // otherwise, respond back with success
+    var jsonData = {
+      message: 'Successfully deleted id ' + requestedId
+    }
+
+    res.json(jsonData);
+
+  })
+
+})
+
+
 
 
 module.exports = router;
