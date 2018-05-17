@@ -47,6 +47,7 @@ router.post('/create', function(req, res){
     console.log(req.body);
 
     // pull out the information from the req.body
+    var id = req.body.prog_name
     var prog_name = req.body.prog_name;
     var cust_name = req.body.cust_name;
     var redemption_no = req.body.redemption_no;
@@ -57,6 +58,7 @@ router.post('/create', function(req, res){
     // hold all this data in an object
     // this object should be structured the same way as your db model
     var programeObj = {
+        id:id,
         prog_name: prog_name,
         cust_name: cust_name,
         redemption_no: redemption_no,
@@ -111,7 +113,7 @@ router.get('/get/:id', function(req, res){
        return res.json(error);
     }
 
-    // otherwise respond with JSON data of the programe
+    // otherwise respond with JSON data of the program
     var jsonData = {
       status: 'OK',
       programe: data

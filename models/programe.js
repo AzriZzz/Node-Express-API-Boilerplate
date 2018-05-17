@@ -4,7 +4,12 @@ var Schema = mongoose.Schema;
 // See http://mongoosejs.com/docs/schematypes.html
 
 var programeSchema = new Schema({
-
+	id: {
+		type: Number,
+		allowNull: false,
+		primaryKey: true,
+		autoIncrement: true
+	},
 	prog_name: String,
 	cust_name: String,	
 	redemption_no: String,
