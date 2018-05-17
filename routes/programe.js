@@ -10,7 +10,7 @@ var xlsxtojson = require("xlsx-to-json-lc");
 var Programe = require("../models/programe.js");
 
 
-app.use(bodyParser.json());  
+programe.use(bodyParser.json());  
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
