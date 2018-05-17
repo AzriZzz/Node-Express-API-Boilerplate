@@ -243,8 +243,8 @@ router.post('/upload', function(req, res) {
           programe: data
         }
   
-        //return res.json(jsonData);
-        return res.redirect('/show-pets')
+        return res.json(jsonData);
+        // return res.redirect('/show-pets')
   
       })
 
