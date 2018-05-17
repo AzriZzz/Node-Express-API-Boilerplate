@@ -9,7 +9,8 @@ var programeSchema = new Schema({
 	redemption_no: String,
 	prod_item: String,
 	consignment_no: String,
-    courier_type: String		
+	courier_type: String,
+	no: String		
 })
 
 // export 'Programe' model so we can interact with it in other files

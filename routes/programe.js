@@ -88,6 +88,7 @@ router.post('/create', function(req, res){
     var prod_item = req.body.prod_item;
     var consignment_no = req.body.consignment_no;
     var courier_type = req.body.courier_type;
+    var no = req.body.no;
 
     // hold all this data in an object
     // this object should be structured the same way as your db model
@@ -98,6 +99,7 @@ router.post('/create', function(req, res){
         prod_item: prod_item,
         consignment_no: consignment_no,
         courier_type: courier_type,
+        no: no
     };
 
     // create a new programe model instance, passing in the object
@@ -222,6 +224,7 @@ router.post('/upload', function(req, res) {
 
 
       console.log(req.file.path);
+      console.log(exceltojson);
 
       try {
           exceltojson({
@@ -236,6 +239,7 @@ router.post('/upload', function(req, res) {
                     programe: null
                   });
               } 
+              console.log(data);
               return res.json({
                 status: 'OK',
                 programe: data
