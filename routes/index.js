@@ -85,6 +85,7 @@ router.post('/api/create', function(req, res){
 
       console.log('saved a new animal!');
       console.log(data);
+      console.log('test');
 
       // now return the json data of the new animal
       var jsonData = {
