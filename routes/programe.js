@@ -224,6 +224,8 @@ router.post('/upload', function(req, res) {
         exceltojson: exceltojson
       }
 
+      console.log(excelObj);
+
       //ini yang keluarkan kat depan
       // console.log(req.file.path);
 
