@@ -223,51 +223,51 @@ router.post('/upload', function(req, res) {
 
       console.log(req.file.path);
 
-      // try {
-      //     exceltojson({
-      //         input: req.file.path,
-      //         output: null, //since we don't need output.json
-      //         lowerCaseHeaders:true
-      //     }, function(err,data){
-      //         if(err) {
-      //               res.json({
-      //               error_code: 13,
-      //               err_desc: err, 
-      //               programe: null
-      //             });
-      //         } 
-      //         return res.json({
-      //           status: 'OK',
-      //           programe: data
-      //         });
-      //     });
-      // } catch (e){
-      //       res.json({
-      //       error_code:14,
-      //       err_desc:'Corrupted excel file'
-      //     });
-      // }
+      try {
+          exceltojson({
+              input: req.file.path,
+              output: null, //since we don't need output.json
+              lowerCaseHeaders:true
+          }, function(err,data){
+              if(err) {
+                    res.json({
+                    error_code: 13,
+                    err_desc: err, 
+                    programe: null
+                  });
+              } 
+              return res.json({
+                status: 'OK',
+                programe: data
+              });
+          });
+      } catch (e){
+            res.json({
+            error_code:14,
+            err_desc:'Corrupted excel file'
+          });
+      }
 
-      var program = new Programe(exceltojson);
+      // var program = new Programe(exceltojson);
 
-      program.save(function(err,data){
-        // if err saving, respond back with error
-        if (err){
-          var error = {status:'ERROR', message: 'Error saving programe'};
-          return res.json(error);
-        }
+      // program.save(function(err,data){
+      //   // if err saving, respond back with error
+      //   if (err){
+      //     var error = {status:'ERROR', message: 'Error saving programe'};
+      //     return res.json(error);
+      //   }
 
-        console.log('saved a new programe!');
-        console.log(data);
+      //   console.log('saved a new programe!');
+      //   console.log(data);
 
-        // now return the json data of the new programe
-        var jsonData = {
-          status: 'OK',
-          programe: data
-        }
+      //   // now return the json data of the new programe
+      //   var jsonData = {
+      //     status: 'OK',
+      //     programe: data
+      //   }
 
-        return res.json(jsonData);
-      })
+      //   return res.json(jsonData);
+      // })
   }) 
 });
 
