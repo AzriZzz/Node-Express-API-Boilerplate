@@ -222,35 +222,82 @@ router.post('/upload', function(req, res) {
 
       //ini yang keluarkan kat depan
       console.log(req.file.path);
-      
 
-      try {
-          exceltojson({
-              input: req.file.path,
-              output: null, //since we don't need output.json
-              lowerCaseHeaders:true
-          }, function(err,data){
-              if(err) {
-                  return res.json({
-                    error_code: 13,
-                    err_desc: err, 
-                    programe: null
-                  });
-              } 
-              res.json({
-                error_code: 0,
-                err_desc: null, 
-                programe: data
-              });
-          });
-      } catch (e){
-          res.json({
-            error_code:14,
-            err_desc:"Corupted excel file"
-          });
-      }
+      var programe = new Programe();
+
+      // now, save that animal instance to the database
+      // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
+      programe.save(exceltojson, function(err,data){
+        // if err saving, respond back with error
+        if (err){
+          var error = {status:'ERROR', message: 'Error saving programe'};
+          return res.json(error);
+        }
+  
+        console.log('saved a new programe!');
+        console.log(data);
+  
+        // now return the json data of the new animal
+        var jsonData = {
+          status: 'OK',
+          programe: data
+        }
+  
+        //return res.json(jsonData);
+        return res.redirect('/show-pets')
+  
+      })
+
+      // try {
+      //     exceltojson({
+      //         input: req.file.path,
+      //         output: null, //since we don't need output.json
+      //         lowerCaseHeaders:true
+      //     }, function(err,data){
+      //         if(err) {
+      //               res.json({
+      //               error_code: 13,
+      //               err_desc: err, 
+      //               programe: null
+      //             });
+      //         } 
+      //         return res.json({
+      //           status: 'OK',
+      //           programe: data
+      //         });
+      //     });
+      // } catch (e){
+      //       res.json({
+      //       error_code:14,
+      //       err_desc:'Corupted excel file'
+      //     });
+      // }
   }) 
 });
 
 module.exports = router;
 
+
+// var programe = new Programe(exceltojson);
+// //now, save the data instance to the database
+// program.save(function(err,data){
+//   // if err saving, respond back with error
+//   if(err){
+//     var error = {
+//       status: 'ERROR',
+//       message: 'Upload failed, try again.'
+//     };
+
+//     return res.json(error);
+//   }
+
+//   console.log(data);
+
+//   var jsonData = {
+//     status: 'OK',
+//     programe: data
+//   }
+
+//   return res.json(jsonData);
+
+// })
