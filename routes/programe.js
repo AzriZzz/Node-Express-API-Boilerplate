@@ -250,7 +250,7 @@ router.post('/upload', function(req, res) {
 
       var program = new Programe(exceltojson);
 
-      program.save(exceltojson, function(err,data){
+      program.save(function(err,data){
         // if err saving, respond back with error
         if (err){
           var error = {status:'ERROR', message: 'Error saving programe'};
