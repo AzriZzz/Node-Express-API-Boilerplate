@@ -231,27 +231,41 @@ router.post('/upload', function(req, res) {
 
       var programe = new Programe(excelObj);
 
-      // now, save that animal instance to the database
-      // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
-      programe.save(function(err,data){
-        // if err saving, respond back with error
-        if (err){
-          var error = {status:'ERROR', message: 'Error saving programe'};
-          return res.json(error);
+      // // now, save that animal instance to the database
+      // // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
+      // programe.save(function(err,data){
+      //   // if err saving, respond back with error
+      //   if (err){
+      //     var error = {status:'ERROR', message: 'Error saving programe'};
+      //     return res.json(error);
+      //   }
+  
+      //   console.log('saved a new programe!');
+      //   console.log(data);
+  
+      //   // now return the json data of the new animal
+      //   var jsonData = {
+      //     status: 'OK',
+      //     programe: data
+      //   }
+  
+      //   return res.json(jsonData);
+      //   // return res.redirect('/show-pets')
+  
+      // })
+
+      programe.save(exceltojson, function(err, data){
+        if (err) {
+            res.json({
+            error_code: 13,
+            err_desc: err, 
+            programe: null
+          });
         }
-  
-        console.log('saved a new programe!');
-        console.log(data);
-  
-        // now return the json data of the new animal
-        var jsonData = {
+        return res.json({
           status: 'OK',
           programe: data
-        }
-  
-        return res.json(jsonData);
-        // return res.redirect('/show-pets')
-  
+        });
       })
 
       // try {
