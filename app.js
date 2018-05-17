@@ -35,8 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // our routes will be contained in routes/index.js
 var routes = require('./routes/index');
 var programe = require('./routes/programe');
+var redemption = require('./routes/redemption');
 app.use('/', routes);
 app.use('/programe', programe);
+app.use('/redemption', redemption);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
