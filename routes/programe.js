@@ -103,14 +103,14 @@ router.get('/get/all', function(req, res){
       return res.json(error);
     }
 
-    // otherwise, respond with the data
-    var jsonData = {
-      status: 'OK',
-      programe: data
-    }
+    // // otherwise, respond with the data
+    // var jsonData = {
+    //   status: 'OK',
+    //   programe: data
+    // }
 
-    console.log(jsonData);
-    res.json(jsonData);
+    // console.log(jsonData);
+    res.json(data);
 
   })
 })
