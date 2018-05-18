@@ -5,8 +5,6 @@ var mongoose = require('mongoose');
 // our db model
 var Programe = require("../models/programe.js");
 
-
-
 /**
  * GET '/'
  * Default home route. Just relays a success message back.
@@ -16,7 +14,7 @@ var Programe = require("../models/programe.js");
 router.get('/', function(req, res) {
 
   var jsonData = {
-  	'name': 'Programe List',
+  	'name': 'Programe',
   	'api-status':'OK'
   }
 
@@ -86,14 +84,17 @@ router.get('/get', function(req, res){
     }
 
     // otherwise, respond with the data
-
     var jsonData = {
       status: 'OK',
       programe: data
     }
+
     console.log(jsonData);
     res.json(jsonData);
 
   })
-
 })
+
+
+module.exports = router;
+

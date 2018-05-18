@@ -14,6 +14,6 @@ var redemptionSchema = new Schema({
 	dateAdded: String	
 })
 
-// export 'Programe' model so we can interact with it in other files
+// export 'Redemption' model so we can interact with it in other files
 module.exports = mongoose.model('Redemption',redemptionSchema);
 

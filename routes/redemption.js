@@ -7,8 +7,7 @@ var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
     
 // our db model
-var Redemption = require("../models/redemptionlist.js");
-
+var Redemption = require("../models/redemption.js");
 
 router.use(bodyParser.json());  
 
@@ -40,13 +39,31 @@ router.get('/upload-file', function(req,res){
 })
 
 
+/**
+ * GET '/'
+ * Default home route. Just relays a success message back.
+ * @param  {Object} req
+ * @return {Object} json
+ */
+router.get('/', function(req, res) {
+
+  var jsonData = {
+  	'name': 'Redemption',
+  	'api-status':'OK'
+  }
+
+  // respond with json data
+  res.json(jsonData)
+});
+
+
 // /**
 //  * GET '/redemption/'
 //  * Receives a GET request to get all redemption details
 //  * @return {Object} JSON
 //  */
 
-router.get('/', function(req, res) {
+router.get('/get/all', function(req, res) {
 
   //mongoose method to find all, see http://mongoosejs.com/docs/api.html#model_Model.find
   Redemption.find(function(err, data){
@@ -55,7 +72,8 @@ router.get('/', function(req, res) {
     if (err || data == null){
       var error = {
         status: 'ERROR', 
-        message: 'Could not find redemption'};
+        message: 'Could not find redemption'
+      };
         return res.json(error);
     }
 
@@ -64,7 +82,7 @@ router.get('/', function(req, res) {
       status: 'OK',
       redemption: data
     }
-    console.log(jsonData);
+
     res.json(jsonData);
   })
 })
@@ -194,64 +212,61 @@ router.get('/delete/:id', function(req, res){
  * @param  {String} req.params.id - The redemption
  * @return {Object} JSON
  */
-/** API path that will upload the files */
+ /** API path that will upload the files */
 router.post('/upload', function(req, res) {
-  var exceltojson;
-  upload(req,res,function(err){
-      if(err){
-           res.json({
-             error_code:11,
-             err_desc:err
-            });
-           return;
-      }
-      /** Multer gives us file info in req.file object */
-      if(!req.file){
+var exceltojson;
+upload(req,res,function(err){
+    if(err){
           res.json({
-            error_code:12,
-            err_desc:"No file passed"
-          });
+                error_code:1,
+                err_desc:err
+            });
           return;
-      }
-
-      
-      /** Check the extension of the incoming file and 
-       *  use the appropriate module
-       */
-      if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
-          exceltojson = xlsxtojson;
-      } else {
-          exceltojson = xlstojson;
-      }
-
-      console.log(req.file.path);
-
-      try {
-          exceltojson({
-              input: req.file.path,
-              output: null, //since we don't need output.json
-              lowerCaseHeaders:true
-          }, function(err,data){
-              if(err) {
-                    res.json({
-                    error_code: 13,
-                    err_desc: err, 
-                    redemption: null
-                  });
-              } 
-              return res.json({
-                status: 'OK',
-                redemption: data
-              });
-          });
-      } catch (e){
+    }
+    /** Multer gives us file info in req.file object */
+    if(!req.file){
+        res.json({
+            error_code:1,
+            err_desc:"No file passed"
+        });
+        return;
+    }
+    /** Check the extension of the incoming file and 
+     *  use the appropriate module
+     */
+    if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+        exceltojson = xlsxtojson;
+    } else {
+        exceltojson = xlstojson;
+    }
+    console.log(req.file.path);
+    try {   
+        exceltojson({
+            input: req.file.path,
+            output: null, //since we don't need output.json
+            lowerCaseHeaders:true
+        }, function(err,result){
+            if(err) {
+                return res.json({
+                    error_code:1,
+                    err_desc:err, 
+                    data: null
+                });
+            } 
             res.json({
-            error_code:14,
-            err_desc:'Corrupted excel file'
-          });
-      }
+                error_code:0,
+                err_desc:null, 
+                data: result
+            });
+        });
+    } catch (e){
+        res.json({
+            error_code:1,
+            err_desc:"Corupted excel file"
+        });
+    }
+})
 
-  }) 
 });
 
 module.exports = router;
