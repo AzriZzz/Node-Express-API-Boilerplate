@@ -5,6 +5,26 @@ var mongoose = require('mongoose');
 // our db model
 var Programe = require("../models/programe.js");
 
+// Add headers
+router.use(function (req, res, next) {
+
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
 /**
  * GET '/'
  * Default home route. Just relays a success message back.
@@ -73,7 +93,7 @@ router.post('/create', function(req, res){
 //  * @return {Object} JSON
 //  */
 
-router.get('/get', function(req, res){
+router.get('/get/all', function(req, res){
 
   // mongoose method to find all, see http://mongoosejs.com/docs/api.html#model_Model.find
   Programe.find(function(err, data){
