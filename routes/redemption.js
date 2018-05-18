@@ -97,12 +97,12 @@ router.get('/get/all', function(req, res) {
     }
 
     //if redemption is true
-    var jsonData = {
-      status: 'OK',
-      redemption: data
-    }
+    // var jsonData = {
+    //   status: 'OK',
+    //   redemption: data
+    // }
 
-    res.json(jsonData);
+    res.json(data);
   })
 })
 
