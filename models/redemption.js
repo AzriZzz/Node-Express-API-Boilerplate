@@ -10,7 +10,6 @@ var redemptionSchema = new Schema({
 	prod_item: String,
 	consignment_no: String,
 	courier_type: String,
-	no: String,
 	dateAdded: String	
 })
 
