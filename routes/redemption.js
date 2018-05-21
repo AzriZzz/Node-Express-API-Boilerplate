@@ -358,7 +358,7 @@ router.post('/upload', function (req, res) {
                 // res.json(result);
 
                 //return res.json(jsonData);
-                return res.redirect('/redemption/upload-done')
+                // return res.redirect('/redemption/upload-done')
             });
         } catch (e) {
             res.json({
