@@ -334,31 +334,32 @@ router.post('/upload', function (req, res) {
                     };
                 })
         
-                // create a new redemption model instance, passing in the object
-                var redemption = new Redemption(redemptionObj);
+                // // create a new redemption model instance, passing in the object
+                // var redemption = new Redemption(redemptionObj);
         
-                // now, save that redemption instance to the database
-                redemption.save(function (err, result) {
-                    // if err saving, respond back with error
-                    if (err) {
-                        var error = {
-                            status: 'ERROR',
-                            message: 'Error saving redemption'
-                        };
-                        return res.json(error);
-                    }
+                // // now, save that redemption instance to the database
+                // redemption.save(function (err, result) {
+                //     // if err saving, respond back with error
+                //     if (err) {
+                //         var error = {
+                //             status: 'ERROR',
+                //             message: 'Error saving redemption'
+                //         };
+                //         return res.json(error);
+                //     }
         
-                    console.log(result);
+                //     console.log(result);
         
-                    // now return the json data of the new redemption
-                    return res.json(result);
+                //     // now return the json data of the new redemption
+                //     return res.json(result);
         
-                })
+                // })
             
-                // res.json(result);
+                // // res.json(result);
 
-                //return res.json(jsonData);
-                // return res.redirect('/redemption/upload-done')
+                // //return res.json(jsonData);
+                // // return res.redirect('/redemption/upload-done')
+                return res.jsonData(result);
             });
         } catch (e) {
             res.json({
