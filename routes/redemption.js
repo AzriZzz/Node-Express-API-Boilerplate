@@ -239,156 +239,35 @@ router.get('/delete/:id', function (req, res) {
 
 })
 
-// /**
-//  * POST '/redemption/upload'
-//  * Receives a POST request to excel file
-//  * @param  {String} req.params.id - The redemption
-//  * @return {Object} JSON
-//  */
-// /** API path that will upload the files */
-// router.post('/upload', function (req, res) {
-//     var exceltojson;
-//     upload(req, res, function (err) {
-//         if (err) {
-//             res.json({
-//                 error_code: 1,
-//                 err_desc: err
-//             });
-//             return;
-//         }
-//         /** Multer gives us file info in req.file object */
-//         if (!req.file) {
-//             res.json({
-//                 error_code: 1,
-//                 err_desc: "No file passed"
-//             });
-//             return;
-//         }
-//         /** Check the extension of the incoming file and 
-//          *  use the appropriate module
-//          */
-//         if (req.file.originalname.split('.')[req.file.originalname.split('.').length - 1] === 'xlsx') {
-//             exceltojson = xlsxtojson;
-//         } else {
-//             exceltojson = xlstojson;
-//         }
-//         console.log(req.file.path);
-//         try {
-//             exceltojson({
-//                 input: req.file.path,
-//                 output: null, //since we don't need output.json
-//                 lowerCaseHeaders: true
-//             }, function (err, result) {
-                
-//                 if (err) {
-//                     return res.json({
-//                         error_code: 1,
-//                         err_desc: err,
-//                         data: null
-//                     });
-//                 }
-//                 var length = result.length;
-//                 console.log(length);
-//                 var redemptionObj = {};
-
-//                 async.map(result, function(result, key, callback){
-//                     //renaming the data respectively to the database
-//                     result["prog_name"] = result["program name"];
-//                     result["cust_name"] = result["custname"];
-//                     result["redemption_no"] = result["redemption no"];
-//                     result["prod_item"] = result["product / item"];
-//                     result["consignment_no"] = result["consignment no"];
-//                     result["courier_type"] = result["courier type"];
-//                     result["dateAdded"] = result["date"];
-        
-//                     //delete the excel data name
-//                     delete result["program name"];
-//                     delete result["custname"];
-//                     delete result["redemption no"];
-//                     delete result["product / item"];
-//                     delete result["consignment no"];
-//                     delete result["courier type"];
-//                     delete result["date"];
-//                     delete result["no"];
-        
-//                     // push the result into object
-//                     var prog_name = result["prog_name"];
-//                     var cust_name = result["cust_name"];
-//                     var redemption_no = result["redemption_no"];
-//                     var prod_item = result["prod_item"];
-//                     var consignment_no = result["consignment_no"];
-//                     var courier_type = result["courier_type"];
-//                     var dateAdded = result["dateAdded"];
-                    
-                
-//                     // hold all this data in an object
-//                     // this object should be structured the same way as your db model
-//                     redemptionObj = {
-//                         prog_name: prog_name,
-//                         cust_name: cust_name,
-//                         redemption_no: redemption_no,
-//                         prod_item: prod_item,
-//                         consignment_no: consignment_no,
-//                         courier_type: courier_type,
-//                         dateAdded: dateAdded
-//                     };
-//                 })
-        
-//                 // // create a new redemption model instance, passing in the object
-//                 // var redemption = new Redemption(redemptionObj);
-        
-//                 // // now, save that redemption instance to the database
-//                 // redemption.save(function (err, result) {
-//                 //     // if err saving, respond back with error
-//                 //     if (err) {
-//                 //         var error = {
-//                 //             status: 'ERROR',
-//                 //             message: 'Error saving redemption'
-//                 //         };
-//                 //         return res.json(error);
-//                 //     }
-        
-//                 //     console.log(result);
-        
-//                 //     // now return the json data of the new redemption
-//                 //     return res.json(result);
-        
-//                 // })
-            
-//                 // // res.json(result);
-
-//                 // //return res.json(jsonData);
-//                 // // return res.redirect('/redemption/upload-done')
-//                 return res.jsonData(result);
-//             });
-//         } catch (e) {
-//             res.json({
-//                 error_code: 1,
-//                 err_desc: "Corupted excel file"
-//             });
-//         }
-//     })
-
-    
-// });
-
-
-router.post('/upload', function(req, res) {
+/**
+ * POST '/redemption/upload'
+ * Receives a POST request to excel file
+ * @param  {String} req.params.id - The redemption
+ * @return {Object} JSON
+ */
+/** API path that will upload the files */
+router.post('/upload', function (req, res) {
     var exceltojson;
-    upload(req,res,function(err){
-        if(err){
-             res.json({error_code:1,err_desc:err});
-             return;
+    upload(req, res, function (err) {
+        if (err) {
+            res.json({
+                error_code: 1,
+                err_desc: err
+            });
+            return;
         }
         /** Multer gives us file info in req.file object */
-        if(!req.file){
-            res.json({error_code:1,err_desc:"No file passed"});
+        if (!req.file) {
+            res.json({
+                error_code: 1,
+                err_desc: "No file passed"
+            });
             return;
         }
         /** Check the extension of the incoming file and 
          *  use the appropriate module
          */
-        if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+        if (req.file.originalname.split('.')[req.file.originalname.split('.').length - 1] === 'xlsx') {
             exceltojson = xlsxtojson;
         } else {
             exceltojson = xlstojson;
@@ -398,19 +277,140 @@ router.post('/upload', function(req, res) {
             exceltojson({
                 input: req.file.path,
                 output: null, //since we don't need output.json
-                lowerCaseHeaders:true
-            }, function(err,result){
-                if(err) {
-                    return res.json({error_code:1,err_desc:err, data: null});
-                } 
-                console.log(result);
-                res.json({error_code:0,err_desc:null, data: result});
+                lowerCaseHeaders: true
+            }, function (err, result) {
+                
+                if (err) {
+                    return res.json({
+                        error_code: 1,
+                        err_desc: err,
+                        data: null
+                    });
+                }
+                var length = result.length;
+                console.log(length);
+                var redemptionObj = {};
+
+                async.map(result, function(result, key, callback){
+                    //renaming the data respectively to the database
+                    result["prog_name"] = result["program name"];
+                    result["cust_name"] = result["custname"];
+                    result["redemption_no"] = result["redemption no"];
+                    result["prod_item"] = result["product / item"];
+                    result["consignment_no"] = result["consignment no"];
+                    result["courier_type"] = result["courier type"];
+                    result["dateAdded"] = result["date"];
+        
+                    //delete the excel data name
+                    delete result["program name"];
+                    delete result["custname"];
+                    delete result["redemption no"];
+                    delete result["product / item"];
+                    delete result["consignment no"];
+                    delete result["courier type"];
+                    delete result["date"];
+                    delete result["no"];
+        
+                    // push the result into object
+                    var prog_name = result["prog_name"];
+                    var cust_name = result["cust_name"];
+                    var redemption_no = result["redemption_no"];
+                    var prod_item = result["prod_item"];
+                    var consignment_no = result["consignment_no"];
+                    var courier_type = result["courier_type"];
+                    var dateAdded = result["dateAdded"];
+                    
+                
+                    // hold all this data in an object
+                    // this object should be structured the same way as your db model
+                    redemptionObj = {
+                        prog_name: prog_name,
+                        cust_name: cust_name,
+                        redemption_no: redemption_no,
+                        prod_item: prod_item,
+                        consignment_no: consignment_no,
+                        courier_type: courier_type,
+                        dateAdded: dateAdded
+                    };
+                })
+        
+                // // create a new redemption model instance, passing in the object
+                // var redemption = new Redemption(redemptionObj);
+        
+                // // now, save that redemption instance to the database
+                // redemption.save(function (err, result) {
+                //     // if err saving, respond back with error
+                //     if (err) {
+                //         var error = {
+                //             status: 'ERROR',
+                //             message: 'Error saving redemption'
+                //         };
+                //         return res.json(error);
+                //     }
+        
+                //     console.log(result);
+        
+                //     // now return the json data of the new redemption
+                //     return res.json(result);
+        
+                // })
+            
+                // // res.json(result);
+
+                res.json(result);
+                return res.redirect('/redemption/upload-done')
+                // res.jsonData(result);
             });
-        } catch (e){
-            res.json({error_code:1,err_desc:"Corupted excel file"});
+        } catch (e) {
+            res.json({
+                error_code: 1,
+                err_desc: "Corupted excel file"
+            });
         }
     })
-   
+
+    
 });
+
+
+// router.post('/upload', function(req, res) {
+//     var exceltojson;
+//     upload(req,res,function(err){
+//         if(err){
+//              res.json({error_code:1,err_desc:err});
+//              return;
+//         }
+//         /** Multer gives us file info in req.file object */
+//         if(!req.file){
+//             res.json({error_code:1,err_desc:"No file passed"});
+//             return;
+//         }
+//         /** Check the extension of the incoming file and 
+//          *  use the appropriate module
+//          */
+//         if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+//             exceltojson = xlsxtojson;
+//         } else {
+//             exceltojson = xlstojson;
+//         }
+//         console.log(req.file.path);
+//         try {
+//             exceltojson({
+//                 input: req.file.path,
+//                 output: null, //since we don't need output.json
+//                 lowerCaseHeaders:true
+//             }, function(err,result){
+//                 if(err) {
+//                     return res.json({error_code:1,err_desc:err, data: null});
+//                 } 
+//                 console.log(result);
+//                 res.json({error_code:0,err_desc:null, data: result});
+//             });
+//         } catch (e){
+//             res.json({error_code:1,err_desc:"Corupted excel file"});
+//         }
+//     })
+   
+// });
 
 module.exports = router;
