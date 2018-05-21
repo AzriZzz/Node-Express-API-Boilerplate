@@ -33,7 +33,7 @@ router.use(bodyParser.json());
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, '../uploads/')
+        cb(null, './uploads/')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
@@ -403,6 +403,7 @@ router.post('/upload', function(req, res) {
                 if(err) {
                     return res.json({error_code:1,err_desc:err, data: null});
                 } 
+                console.log(result);
                 res.json({error_code:0,err_desc:null, data: result});
             });
         } catch (e){
