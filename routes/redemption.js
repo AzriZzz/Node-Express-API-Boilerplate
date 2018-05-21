@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var xlstojson = require('xls-to-json-lc');
 var xlsxtojson = require('xlsx-to-json-lc');
-var async = require("async");
+var async = require('async');
 
 // our db model
 var Redemption = require("../models/redemption.js");
