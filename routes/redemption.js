@@ -58,6 +58,10 @@ router.get('/upload-file', function (req, res) {
     res.render('upload.html')
 })
 
+router.get('/upload-done', function(req,res){
+    res.render('upload-done.html')
+  })
+
 
 /**
  * GET '/'
@@ -352,6 +356,9 @@ router.post('/upload', function (req, res) {
                 })
             
                 // res.json(result);
+
+                //return res.json(jsonData);
+                return res.redirect('/redemption/upload-done')
             });
         } catch (e) {
             res.json({
