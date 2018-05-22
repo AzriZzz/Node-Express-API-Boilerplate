@@ -55,11 +55,13 @@ router.post('/create', function(req, res){
 
   // pull out the information from the req.body
   var prog_name = req.body.prog_name;
+  var item = req.body.item;
 
   // hold all this data in an object
   // this object should be structured the same way as your db model
   var programObj = {
     prog_name: prog_name,
+    item: item
   };
 
   // create a new animal model instance, passing in the object

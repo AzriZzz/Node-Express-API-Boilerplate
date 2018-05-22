@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 // See http://mongoosejs.com/docs/schematypes.html
 
 var programeSchema = new Schema({
-	prog_name: String
+	prog_name: String,
+	item: String
 })
 
 // export 'Animal' model so we can interact with it in other files
