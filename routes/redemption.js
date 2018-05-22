@@ -13,7 +13,7 @@ var Redemption = require("../models/redemption.js");
 router.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -358,7 +358,7 @@ router.post('/upload', function (req, res) {
                 // // res.json(result);
 
                 res.json(result);
-                return res.redirect('/redemption/upload-done')
+                //  res.redirect('/redemption/upload-done')
                 // res.jsonData(result);
             });
         } catch (e) {
@@ -369,7 +369,7 @@ router.post('/upload', function (req, res) {
         }
     })
 
-    
+
 });
 
 
