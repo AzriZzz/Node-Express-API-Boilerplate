@@ -400,13 +400,14 @@ router.post('/upload/create', function (req, res) {
     var redemption = new Redemption(redemptionObj);
 
 
-    redemption.save(function (err, docs) {
+    redemption.save(function (err, data) {
         if (err){ 
             return console.error(err);
-        } else {
-          console.log("Multiple documents inserted to Collection");
         }
-      });
+        
+        return res.json(data);
+
+    });
     // now, save that redemption instance to the database
     // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
     // redemption.save(function (err, data) {
