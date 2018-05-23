@@ -372,45 +372,51 @@ router.post('/upload', function (req, res) {
 
 });
 
+router.post('/upload/create', function (req, res) {
 
-// router.post('/upload', function(req, res) {
-//     var exceltojson;
-//     upload(req,res,function(err){
-//         if(err){
-//              res.json({error_code:1,err_desc:err});
-//              return;
-//         }
-//         /** Multer gives us file info in req.file object */
-//         if(!req.file){
-//             res.json({error_code:1,err_desc:"No file passed"});
-//             return;
-//         }
-//         /** Check the extension of the incoming file and 
-//          *  use the appropriate module
-//          */
-//         if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
-//             exceltojson = xlsxtojson;
-//         } else {
-//             exceltojson = xlstojson;
-//         }
-//         console.log(req.file.path);
-//         try {
-//             exceltojson({
-//                 input: req.file.path,
-//                 output: null, //since we don't need output.json
-//                 lowerCaseHeaders:true
-//             }, function(err,result){
-//                 if(err) {
-//                     return res.json({error_code:1,err_desc:err, data: null});
-//                 } 
-//                 console.log(result);
-//                 res.json({error_code:0,err_desc:null, data: result});
-//             });
-//         } catch (e){
-//             res.json({error_code:1,err_desc:"Corupted excel file"});
-//         }
-//     })
-   
-// });
+    console.log(req.body);
+
+    // pull out the information from the req.body
+    var prog_name = req.body.prog_name;
+    var cust_name = req.body.cust_name;
+    var redemption_no = req.body.redemption_no;
+    var prod_item = req.body.prod_item;
+    var consignment_no = req.body.consignment_no;
+    var courier_type = req.body.courier_type;
+    var no = req.body.no;
+
+    // hold all this data in an object
+    // this object should be structured the same way as your db model
+    var redemptionObj = {
+        prog_name: prog_name,
+        cust_name: cust_name,
+        redemption_no: redemption_no,
+        prod_item: prod_item,
+        consignment_no: consignment_no,
+        courier_type: courier_type,
+        no: no
+    };
+
+    // create a new redemption model instance, passing in the object
+    var redemption = new Redemption(redemptionObj);
+
+    // now, save that redemption instance to the database
+    // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
+    redemption.save(function (err, data) {
+        // if err saving, respond back with error
+        if (err) {
+            var error = {
+                status: 'ERROR',
+                message: 'Error saving redemption'
+            };
+            return res.json(error);
+        }
+
+        console.log('saved a new redemption!');
+
+        return res.json(data);
+
+    })
+});
 
 module.exports = router;
