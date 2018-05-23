@@ -383,7 +383,7 @@ router.post('/upload/create', function (req, res) {
     var prod_item = req.body.prod_item;
     var consignment_no = req.body.consignment_no;
     var courier_type = req.body.courier_type;
-    var no = req.body.no;
+    var dateAdded = req.body.dateAdded;
 
     // hold all this data in an object
     // this object should be structured the same way as your db model
@@ -394,7 +394,7 @@ router.post('/upload/create', function (req, res) {
         prod_item: prod_item,
         consignment_no: consignment_no,
         courier_type: courier_type,
-        no: no
+        dateAdded: dateAdded
     };
 
     // create a new redemption model instance, passing in the object
