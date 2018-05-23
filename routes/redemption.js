@@ -386,7 +386,7 @@ router.post('/upload/create', function (req, res) {
 
     // hold all this data in an object
     // this object should be structured the same way as your db model
-    var redemptionObj = {
+    var redemptionObj = [{
         prog_name: prog_name,
         cust_name: cust_name,
         redemption_no: redemption_no,
@@ -394,13 +394,13 @@ router.post('/upload/create', function (req, res) {
         consignment_no: consignment_no,
         courier_type: courier_type,
         dateAdded: dateAdded
-    };
+    }];
 
     // create a new redemption model instance, passing in the object
-    var redemption = new Redemption(redemptionObj);
+    // var redemption = new Redemption(redemptionObj);
 
 
-    redemption.collection.insert(data,function (err, docs) {
+    Redemption.collection.insert(redemptionObj,function (err, docs) {
         if (err){ 
             return console.error(err);
         }
