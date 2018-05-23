@@ -400,23 +400,31 @@ router.post('/upload/create', function (req, res) {
     // create a new redemption model instance, passing in the object
     var redemption = new Redemption(redemptionObj);
 
+
+    redemption.collection.insert(function (err, docs) {
+        if (err){ 
+            return console.error(err);
+        } else {
+          console.log("Multiple documents inserted to Collection");
+        }
+      });
     // now, save that redemption instance to the database
     // mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save
-    redemption.save(function (err, data) {
-        // if err saving, respond back with error
-        if (err) {
-            var error = {
-                status: 'ERROR',
-                message: 'Error saving redemption'
-            };
-            return res.json(error);
-        }
+    // redemption.save(function (err, data) {
+    //     // if err saving, respond back with error
+    //     if (err) {
+    //         var error = {
+    //             status: 'ERROR',
+    //             message: 'Error saving redemption'
+    //         };
+    //         return res.json(error);
+    //     }
 
-        console.log('saved a new redemption!');
+    //     console.log('saved a new redemption!');
 
-        return res.json(data);
+    //     return res.json(data);
 
-    })
+    // })
 });
 
 module.exports = router;
