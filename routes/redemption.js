@@ -11,7 +11,6 @@ var async = require('async');
 var Redemption = require("../models/redemption.js");
 
 router.use(function (req, res, next) {
-
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
@@ -401,7 +400,7 @@ router.post('/upload/create', function (req, res) {
     var redemption = new Redemption(redemptionObj);
 
 
-    redemption.collection.insert(function (err, docs) {
+    redemption.create(function (err, docs) {
         if (err){ 
             return console.error(err);
         } else {
