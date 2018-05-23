@@ -400,11 +400,11 @@ router.post('/upload/create', function (req, res) {
     var redemption = new Redemption(redemptionObj);
 
 
-    redemption.save(function (err, data) {
+    redemption.insert(function (err, data) {
         if (err){ 
             return console.error(err);
         }
-        
+
         return res.json(data);
 
     });
