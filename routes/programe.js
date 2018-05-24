@@ -115,6 +115,39 @@ router.get('/get/all', function(req, res){
   })
 })
 
+/**
+ * GET '/redemption/delete/:id'
+ * Receives a GET request specifying the programe to delete
+ * @param  {String} req.params.id - The redemption
+ * @return {Object} JSON
+ */
+
+router.get('/delete/:id', function (req, res) {
+
+  var requestedId = req.params.id;
+
+  // Mongoose method to remove, http://mongoosejs.com/docs/api.html#model_Model.findByIdAndRemove
+  Programe.findByIdAndRemove(requestedId, function (err, data) {
+      if (err || data == null) {
+          var error = {
+              status: 'ERROR',
+              message: 'Could not find that program to delete'
+          };
+          return res.json(error);
+      }
+
+      // otherwise, respond back with success
+      var jsonData = {
+          status: 'OK',
+          message: 'Successfully deleted id ' + requestedId
+      }
+
+      res.json(jsonData);
+
+  })
+
+})
+
 
 module.exports = router;
 
