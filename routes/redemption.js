@@ -17,7 +17,7 @@ router.use(function (req, res, next) {
     // if(allowedOrigins.indexOf(origin) > -1){
     //     res.setHeader('Access-Control-Allow-Origin', origin);
     // }
-    res.setHeader('Access-Control-Allow-Origin', 'http://www.jcmsprorewards.com.my/');
+    res.setHeader('Access-Control-Allow-Origin', 'http://www.jcmsprorewards.com.my');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
